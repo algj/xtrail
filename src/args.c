@@ -11,7 +11,6 @@ typedef struct {
     int   color;
     float refresh_rate;
     float mouse_refresh_rate;
-    int   mouse_area;
     int   dither;
     char  mouse_separate_thread;
     char  quit;

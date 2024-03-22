@@ -43,14 +43,12 @@ void render(ConfigArgs *args, Canvas *c) {
     }
 
     // distCurrent = 0;
-    // for (int i = 1; i < mouse->listc; ++i) {
+    // for (int i = 1; i < c->mouse->listc; ++i) {
     //     if (distCurrent >= args->trail_length) continue;
-    //     Point p = mouseState(mouse, i).p;
+    //     Point p = mouseState(c->mouse, i).p;
     //     float dist = distPrecalc[i];
     //     distCurrent += dist;
     //     float g = distCurrent / distMax;
-    //     drawBlob(c, p, (1-g)*(args->trail_thickness-1), 0, 1-g);
+    //     rRadialGrad(c, p, (1-g)*(args->trail_thickness-1), 0, 1-g);
     // }
-
-    pixelsFlush(c);
 }

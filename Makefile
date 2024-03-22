@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -pedantic -O3 -march=native
+CFLAGS = -pedantic -Ofast
 LDFLAGS = -lm -lc -lX11 -lXrandr -lXext -lXrender -pthread
 
 SRC = src/main.c

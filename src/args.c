@@ -4,8 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "./global.c"
-
 typedef struct {
     int   pos_count;
     int   trail_length;

@@ -8,11 +8,11 @@ short bayerMatrix[4][4] = {
     {15, 7, 13, 5},
 };
 float bayerMatrixFloat[4][4] = {
-    {0.00000000000000000, 0.53333333333333333, 0.13333333333333333, 0.66666666666666667},
-    {0.80000000000000000, 0.26666666666666666, 0.93333333333333333, 0.40000000000000000},
-    {0.20000000000000000, 0.73333333333333333, 0.06666666666666667, 0.60000000000000000},
-    {1.00000000000000000, 0.46666666666666667, 0.86666666666666667, 0.33333333333333333},
+    {0.0f, 0.5f, 0.125f, 0.625f},
+    {0.75f, 0.25f, 0.875f, 0.375f},
+    {0.1875f, 0.6875f, 0.0625f, 0.5625f},
+    {0.9375f, 0.4375f, 0.8125f, 0.3125f}
 };
 
-char bayerDitherFloat(short x, short y, float val) { return bayerMatrixFloat[x % 4][y % 4] < val; }
-char bayerDither16(short x, short y, char val) { return bayerMatrix[x % 4][y % 4] < val; }
+char inline bayerDitherFloat(short x, short y, float val) { return bayerMatrixFloat[x % 4][y % 4] < val; }
+char inline bayerDither16(short x, short y, char val) { return bayerMatrix[x % 4][y % 4] < val; }

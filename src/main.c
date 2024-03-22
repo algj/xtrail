@@ -166,7 +166,6 @@ void render_task() {
     }
     if (!area.isClean) {
         // clean the area for next frame
-        // memset(image->data, 0, image->bytes_per_line*image->height);
         renderAreaClearImage(&area, image);
     }
 

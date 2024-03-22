@@ -1,0 +1,13 @@
+# https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+BasedOnStyle: Google
+IndentWidth: 4
+
+AlignConsecutiveAssignments: false
+AlignConsecutiveDeclarations: true
+ReflowComments: true
+SortIncludes: true
+
+IndentPPDirectives: BeforeHash
+AlignEscapedNewlines: DontAlign
+AllowShortFunctionsOnASingleLine: All
+ColumnLimit: 128

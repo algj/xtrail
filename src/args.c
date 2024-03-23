@@ -43,10 +43,10 @@ const char *helpStrs[] = {"--help", "-help", "help", "--h", "-h", "h", "--?", "-
 
 ConfigArgs parseArgs(int argc, char *argv[]) {
     ConfigArgs config;
-    config.trail_length = 400;
-    config.trail_thickness = 10;
+    config.trail_length = 800;
+    config.trail_thickness = 8;
     config.color = 0x7F7F7F;
-    config.pos_count = 60;
+    config.pos_count = 20;
     config.refresh_rate = -1;
     config.mouse_refresh_rate = -1;
     config.dither = 1;

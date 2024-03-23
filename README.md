@@ -2,6 +2,8 @@
 
 xtrail is a lightweight program designed to render trails behind the mouse cursor on X11-based systems. This doesn't require a compositor (but highly recommended for some programs) and utilizes dithering techniques for rendering with a minimalistic 1-bit "transparency" depth.
 
+![Preview of both trails](example.gif)
+
 ## Features
 
 - Renders trails behind the mouse cursor with multiple render types.
@@ -16,7 +18,7 @@ To build xtrail, simply use the provided Makefile by running:
 make
 ```
 
-This will generate a binary named `xtrail`.
+This will generate a binary named `xtrail`, try it out with `./xtrail --trail --color 0x7F7F7F`.
 
 ## Usage
 

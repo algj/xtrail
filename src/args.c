@@ -48,7 +48,7 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
     config.color = 0x7F7F7F;
     config.pos_count = 60;
     config.refresh_rate = -1;
-    config.mouse_refresh_rate = -1;
+    config.mouse_refresh_rate = 500;
     config.dither = 1;
     config.mouse_interpolation_factor = 0;
     config.mouse_separate_thread = 1;
@@ -95,15 +95,6 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
     }
 
     if (!typeHasSet) config.type_trail = 1;
-
-    if (config.mouse_refresh_rate == -1) {
-        // let's keep the mouse refresh rate at least 60...
-        if (config.refresh_rate != -1 && config.refresh_rate >= 60) {
-            config.mouse_refresh_rate = config.refresh_rate;
-        } else {
-            config.mouse_refresh_rate = 500;
-        }
-    }
 
     return config;
 }

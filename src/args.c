@@ -101,7 +101,7 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
         if (config.refresh_rate != -1 && config.refresh_rate >= 60) {
             config.mouse_refresh_rate = config.refresh_rate;
         } else {
-            config.mouse_refresh_rate = 120;
+            config.mouse_refresh_rate = 500;
         }
     }
 

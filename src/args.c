@@ -46,7 +46,7 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
     config.trail_length = 800;
     config.trail_thickness = 8;
     config.color = 0x7F7F7F;
-    config.pos_count = 20;
+    config.pos_count = 60;
     config.refresh_rate = -1;
     config.mouse_refresh_rate = -1;
     config.dither = 1;
@@ -90,7 +90,7 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
         } else if (strcmp(argv[i], "--dots") == 0) {
             config.type_dots = typeHasSet = 1;
         } else {
-            printf("Warning [parseArgs]: Unknown argument \"%s\", check \"--help\".", argv[i]);
+            printf("Warning [parseArgs]: Unknown argument \"%s\", check \"--help\".\n", argv[i]);
         }
     }
 

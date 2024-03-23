@@ -23,6 +23,7 @@ typedef struct {
 
 typedef struct {
     Point p;
+    FPoint fp;
     int   mask;
 } MouseState;
 
@@ -34,7 +35,7 @@ typedef struct {
     MouseState  *state;
     unsigned int historyCur;
     unsigned int listc;
-    char         hasMovedRecently;
+    int          interpolationFactor;
 } Mouse;
 
 typedef struct {

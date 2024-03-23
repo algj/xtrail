@@ -56,10 +56,10 @@ void unloadEverything() {
 
 void flushMask() {
     // XPutImage(display, maskPixmap, maskGC, image, 0, 0, 0, 0, screen.width, screen.height);
-    int x = MIN(area.x1,area.prev_x1);
-    int y = MIN(area.y1,area.prev_y1);
-    int w = MAX(area.x2,area.prev_x2)-x;
-    int h = MAX(area.y2,area.prev_y2)-y;
+    int x = MAX(0, MIN(area.x1, area.prev_x1));
+    int y = MAX(0, MIN(area.y1, area.prev_y1));
+    int w = MIN(screen.width-1, MAX(area.x2, area.prev_x2) - x);
+    int h = MIN(screen.height-1, MAX(area.y2, area.prev_y2) - y);
     XPutImage(display, maskPixmap, maskGC, image, x, y, x, y, w, h);
     XShapeCombineMask(display, window, ShapeBounding, 0, 0, maskPixmap, ShapeSet);
 }
@@ -204,9 +204,9 @@ int main(int argc, char *argv[]) {
     // init mouse
     if (args.mouse_separate_thread) {
         mouseRefreshRate = args.mouse_refresh_rate;
-        mouseInitThread(args.pos_count);
+        mouseInitThread(args.pos_count, args.mouse_interpolation_factor);
     } else {
-        mouse = mouseInit(display, DefaultRootWindow(display), args.pos_count);
+        mouse = mouseInit(display, DefaultRootWindow(display), args.pos_count, args.mouse_interpolation_factor);
     }
 
     // init screen

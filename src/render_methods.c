@@ -31,10 +31,10 @@ void inline rPixelAdd(Canvas *canvas, Point point, float intensity) {
 void rFCircle(Canvas *c, Point point, float radius, float intensity) {
     if (radius == 0 || intensity == 0) return;
     // calculate the bounding box of the circle
-    int x_min = round(point.x - radius);
-    int x_max = round(point.x + radius);
-    int y_min = round(point.y - radius);
-    int y_max = round(point.y + radius);
+    int x_min = round(point.x - radius)-1;
+    int x_max = round(point.x + radius)+1;
+    int y_min = round(point.y - radius)-1;
+    int y_max = round(point.y + radius)+1;
 
     // claim render area
     renderAreaClaim(c->area, (Point){x_min, y_min});
@@ -57,10 +57,10 @@ void rRadialGrad(Canvas *c, Point point, float radius, float intensityOut, float
     if (radius == 0 || (intensityIn == 0 && intensityOut == 0)) return;
 
     // calculate the bounding box of the circle
-    int x_min = round(point.x - radius);
-    int x_max = round(point.x + radius);
-    int y_min = round(point.y - radius);
-    int y_max = round(point.y + radius);
+    int x_min = round(point.x - radius)-1;
+    int x_max = round(point.x + radius)+1;
+    int y_min = round(point.y - radius)-1;
+    int y_max = round(point.y + radius)+1;
 
     // claim render area
     renderAreaClaim(c->area, (Point){x_min, y_min});
@@ -93,7 +93,7 @@ void rLine(Canvas *c, Point point1, Point point2, char color) {
     int err = dx - dy;
 
     while (x0 != x1 || y0 != y1) {
-        rPixelRaw(c->image, x0, y0, color);
+        rPixelAdd(c, (Point){x0, y0}, 1);
         int e2 = 2 * err;
         if (e2 > -dy) {
             err -= dy;
@@ -104,7 +104,7 @@ void rLine(Canvas *c, Point point1, Point point2, char color) {
             y0 += sy;
         }
     }
-    rPixelRaw(c->image, x1, y1, color);
+    rPixelAdd(c, (Point){x1, y1}, 1);
 
     // claim render area
     renderAreaClaim(c->area, point1);

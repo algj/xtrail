@@ -3,9 +3,13 @@
 #include <math.h>
 
 typedef struct {
-    short x;
-    short y;
+    int x;
+    int y;
 } Point;
+typedef struct {
+    float x;
+    float y;
+} FPoint;
 
 // Distance between two points, obviously
 float pointGetDistance(Point p1, Point p2) {

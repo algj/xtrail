@@ -63,9 +63,9 @@ void *mouseThreadLoop(void *arg) {
     return NULL;
 }
 
-void mouseInitThread(int historyMaxLength) {
+void mouseInitThread(int historyMaxLength, int interpolationFactor) {
     Display *display = XOpenDisplay(NULL);
-    mouse = mouseInit(display, DefaultRootWindow(display), historyMaxLength);
+    mouse = mouseInit(display, DefaultRootWindow(display), historyMaxLength, interpolationFactor);
     mouseUpdate(mouse);
     if (pthread_create(&mouseThreadID, NULL, mouseThreadLoop, "mouse-pooling-thread") != 0) {
         fprintf(stderr, "Error [mouseSpawnThread]: failed to create a thread\n");

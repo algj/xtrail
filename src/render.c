@@ -23,32 +23,36 @@ void render(ConfigArgs *args, Canvas *c) {
     }
     float distMax = MIN(distTotal, args->trail_length);
 
-    distCurrent = 0;
-    for (int i = 0; i < c->mouse->listc - 2; ++i) {
-        if (distCurrent >= args->trail_length) continue;
-        Point p1 = mouseState(c->mouse, i).p;
-        Point p2 = mouseState(c->mouse, i + 1).p;
-        float dist = distPrecalc[i];
-        if (dist == 0) continue;
-        if (dist + distCurrent > args->trail_length) {
-            float allowedLength = args->trail_length - distCurrent;
-            p2 = pointInterpolate(p1, p2, 1 - (dist - allowedLength) / dist);
+    if (args->type_trail) {
+        distCurrent = 0;
+        for (int i = 0; i < c->mouse->listc - 2; ++i) {
+            if (distCurrent >= args->trail_length) continue;
+            Point p1 = mouseState(c->mouse, i).p;
+            Point p2 = mouseState(c->mouse, i + 1).p;
+            float dist = distPrecalc[i];
+            if (dist == 0) continue;
+            if (dist + distCurrent > args->trail_length) {
+                float allowedLength = args->trail_length - distCurrent;
+                p2 = pointInterpolate(p1, p2, 1 - (dist - allowedLength) / dist);
+            }
+            float g1 = distCurrent / distMax;
+            distCurrent += dist;
+            float g2 = distCurrent / distMax;
+            // drawLine(c, p1, p2);
+            rTaperedGradLine(c, p1, 1 - g1, args->trail_thickness - g1 * args->trail_thickness, p2, 1 - g2,
+                             args->trail_thickness - g2 * args->trail_thickness);
         }
-        float g1 = distCurrent / distMax;
-        distCurrent += dist;
-        float g2 = distCurrent / distMax;
-        // drawLine(c, p1, p2);
-        rTaperedGradLine(c, p1, 1 - g1, args->trail_thickness - g1 * args->trail_thickness, p2, 1 - g2,
-                    args->trail_thickness - g2 * args->trail_thickness);
     }
 
-    // distCurrent = 0;
-    // for (int i = 1; i < c->mouse->listc; ++i) {
-    //     if (distCurrent >= args->trail_length) continue;
-    //     Point p = mouseState(c->mouse, i).p;
-    //     float dist = distPrecalc[i];
-    //     distCurrent += dist;
-    //     float g = distCurrent / distMax;
-    //     rRadialGrad(c, p, (1-g)*(args->trail_thickness-1), 0, 1-g);
-    // }
+    if (args->type_dots) {
+        distCurrent = 0;
+        for (int i = 1; i < c->mouse->listc; ++i) {
+            if (distCurrent >= args->trail_length) continue;
+            Point p = mouseState(c->mouse, i).p;
+            float dist = distPrecalc[i];
+            distCurrent += dist;
+            float g = distCurrent / distMax;
+            rRadialGrad(c, p, (1 - g) * (args->trail_thickness - 1), 0, 1 - g);
+        }
+    }
 }

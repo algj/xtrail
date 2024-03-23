@@ -2,6 +2,7 @@
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "./global.c"
@@ -44,20 +45,33 @@ const int mouseBtnMasks[6] = {
     Button5Mask,
 };
 
+#define MOUSE_INCREASE \
+    do { \
+        (mouse->historyCur = (mouse->historyCur + 1) % mouse->historyBufSize); \
+        if (mouse->listc != mouse->historyBufSize) mouse->listc++; \
+    } while (0);
+#define MOUSE_DECREASE \
+    do { \
+        (mouse->historyCur = (mouse->historyCur - 1 + mouse->historyBufSize) % mouse->historyBufSize); \
+        if (mouse->listc > 0) mouse->listc--; \
+    } while (0);
+#define MOUSE_CURRENT (mouse->historyList[mouse->historyCur])
+
 void mouseUpdate(Mouse *mouse) {
     Window       root;
     Window       child;
     int          rootX, rootY, winX, winY;
     unsigned int mask;
     XQueryPointer(mouse->display, mouse->window, &root, &child, &rootX, &rootY, &winX, &winY, &mask);
-    if (mouse->listc != mouse->historyBufSize) {
-        mouse->listc++;
-    }
-    mouse->hasMovedRecently = mouse->listc > 0 && (mouse->historyList[mouse->historyCur].p.x != rootX ||
-                                                        mouse->historyList[mouse->historyCur].p.y != rootY);
-    mouse->historyCur = (mouse->historyCur + 1) % mouse->historyBufSize;
-    mouse->historyList[mouse->historyCur] = (MouseState){.p = {rootX, rootY}, .mask = mask};
-    mouse->state = &mouse->historyList[mouse->historyCur];
+    MouseState mcurr = (MouseState){
+        .fp = {rootX, rootY},
+        .p = {rootX, rootY},
+        .mask = mask,
+    };
+    // TODO: interpolate
+    MOUSE_INCREASE;
+    MOUSE_CURRENT = mcurr;
+    mouse->state = &MOUSE_CURRENT;
 }
 
 void mouseReset(Mouse *mouse) {
@@ -71,9 +85,10 @@ void mouseFree(Mouse *mouse) {
     free(mouse);
 }
 
-Mouse *mouseInit(Display *display, Window window, int historyMaxLength) {
+Mouse *mouseInit(Display *display, Window window, int historyMaxLength, int interpolationFactor) {
     Mouse *mouse = malloc(sizeof(Mouse));
-    historyMaxLength = MAX(2, historyMaxLength);
+    historyMaxLength = MAX(2, historyMaxLength) * MAX(1, 1+interpolationFactor);
+    mouse->interpolationFactor = interpolationFactor;
     mouse->display = display;
     mouse->window = window;
     mouse->historyBufSize = historyMaxLength;

@@ -58,8 +58,8 @@ void flushMask() {
     // XPutImage(display, maskPixmap, maskGC, image, 0, 0, 0, 0, screen.width, screen.height);
     int x = MAX(0, MIN(area.x1, area.prev_x1));
     int y = MAX(0, MIN(area.y1, area.prev_y1));
-    int w = MIN(screen.width-1, MAX(area.x2, area.prev_x2) - x);
-    int h = MIN(screen.height-1, MAX(area.y2, area.prev_y2) - y);
+    int w = MIN(screen.width, MAX(area.x2, area.prev_x2) - x);
+    int h = MIN(screen.height, MAX(area.y2, area.prev_y2) - y);
     XPutImage(display, maskPixmap, maskGC, image, x, y, x, y, w, h);
     XShapeCombineMask(display, window, ShapeBounding, 0, 0, maskPixmap, ShapeSet);
 }

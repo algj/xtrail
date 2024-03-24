@@ -1,0 +1,65 @@
+.TH xtrail 1 "March 2024" "xtrail version 1.0" "User Commands"
+
+.SH NAME
+xtrail \- render trails behind the mouse cursor on X11-based systems
+
+.SH SYNOPSIS
+.B xtrail
+[\fIOPTIONS\fR]
+
+.SH DESCRIPTION
+\fBxtrail\fR is a lightweight program designed to render trails behind the mouse cursor on X11-based systems. It doesn't require a compositor but is highly recommended for some programs. It utilizes dithering techniques for rendering with a minimalistic 1-bit "transparency" depth.
+
+.SH OPTIONS
+.TP
+.BR \-h , \-\-help
+Display help message.
+.TP
+.BR \-\-trail\-length " <length>"
+Set the length of the trail to <length>.
+.TP
+.BR \-\-trail\-thickness " <px>"
+Set the thickness of the trail to <px>.
+.TP
+.BR \-\-color " <hex>"
+Set the color to <hex> (e.g., 0x7F7F7F).
+.TP
+.BR \-\-mouse\-hcount " <count>"
+Set the position history count to <count>.
+.TP
+.BR \-\-refresh\-rate " <fps>"
+Set the refresh rate count to <fps>.
+.TP
+.BR \-\-mouse\-refresh\-rate " <hz>"
+Set the mouse refresh rate count to <hz> (e.g., 240.00).
+.TP
+.BR \-\-no\-dither
+Disable dithering.
+.TP
+.BR \-\-mouse\-smooth\-factor
+Synchronous rendering and mouse pooling.
+.TP
+.BR \-\-mouse\-share\-thread " <value>"
+Adjust the smoothness of mouse movements (e.g., 0 or 2).
+.TP
+.BR \-\-mouse\-empty\-area " <px>"
+Set the area around the mouse which is not obfuscated by trails.
+.TP
+.BR \-\-trail
+Render "trail" type.
+.TP
+.BR \-\-dots
+Render "dots" type.
+
+.SH LICENSE
+\fBxtrail\fR is licensed under the BSD 2-Clause License. See the LICENSE file for more details.
+
+.SH DISCLAIMER
+This project is provided as-is and may not receive regular updates or extensive support. Use it at your own discretion. Expect high CPU usage when running this.
+
+.SH AUTHOR
+Written by algj.
+
+.SH SEE ALSO
+.BR X11 (7)
+.BR https://github.com/algj/xtrail

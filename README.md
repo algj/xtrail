@@ -13,12 +13,18 @@ xtrail is a lightweight program designed to render trails behind the mouse curso
 
 ## Installation
 
-To build xtrail, simply use the provided Makefile by running:
-```
-make
-```
+To build xtrail, simply use the provided Makefile by running `make` or `sudo make install`:
+```sh
+git clone https://github.com/algj/xtrail.git
+cd xtrail
+sudo make install
 
-This will generate a binary named `xtrail`, try it out with `./xtrail --trail --color 0x7F7F7F`.
+# try it out
+xtrail --trail --color 0x7F7F7F
+
+# to uninstall xtrail:
+sudo make uninstall
+```
 
 ## Usage
 

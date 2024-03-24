@@ -50,7 +50,3 @@ xtrail is licensed under the BSD 2-Clause License. See the `LICENSE` file for mo
 ## Disclaimer
 
 This project is provided as-is and may not receive regular updates or extensive support. Use it at your own discretion. Expect high CPU usage when running this.
-
-## Seeking for a job
-
-Looking for work. Let's chat!

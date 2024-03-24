@@ -25,7 +25,10 @@ void inline rPixelRaw(XImage *image, int x, int y, char color) {
 
 void inline rPixelAdd(Canvas *canvas, Point point, float color) {
     if (point.x >= canvas->image->width || point.y >= canvas->image->height || point.x < 0 || point.y < 0) return;
-    if (color == -1) rPixelRaw(canvas->image, point.x, point.y, 0);
+    if (color == -1) {
+        rPixelRaw(canvas->image, point.x, point.y, 0);
+        return;
+    }
     if (color >= 1 || canvas->dither == 0 || bayerDitherFloat(point.x, point.y, color))
         rPixelRaw(canvas->image, point.x, point.y, 1);
 }

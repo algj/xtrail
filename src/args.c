@@ -14,10 +14,12 @@ typedef struct {
     char  mouse_separate_thread;
     int   mouse_interpolation_factor;
     int   dither;
-    char  quit;
+    int   mouse_empty_area;
 
     char type_trail;
     char type_dots;
+
+    char quit;
 } ConfigArgs;
 
 void print_help() {
@@ -34,6 +36,7 @@ void print_help() {
         "  --no-dither                  Disable dithering\n"
         "  --mouse-smooth-factor        Synchronous rendering and mouse pooling\n"
         "  --mouse-share-thread <value> Adjusts the smoothness of mouse movements (e.g. 0 or 2)\n"
+        "  --mouse-empty-area <px>      Sets area around mouse which is not obfuscated by trails\n"
         "Render type options:\n"
         "  --trail                      Render \"trail\" type\n"
         "  --dots                       Render \"dots\" type\n");
@@ -52,6 +55,7 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
     config.dither = 1;
     config.mouse_interpolation_factor = 0;
     config.mouse_separate_thread = 1;
+    config.mouse_empty_area = 15;
     config.quit = 0;
 
     config.type_trail = 0;
@@ -85,6 +89,8 @@ ConfigArgs parseArgs(int argc, char *argv[]) {
             config.mouse_interpolation_factor = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--mouse-share-thread") == 0) {
             config.mouse_separate_thread = 0;
+        } else if (strcmp(argv[i], "--mouse-empty-area") == 0) {
+            config.mouse_empty_area = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--trail") == 0) {
             config.type_trail = typeHasSet = 1;
         } else if (strcmp(argv[i], "--dots") == 0) {

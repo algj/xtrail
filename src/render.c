@@ -13,19 +13,16 @@
 
 void render(ConfigArgs *args, Canvas *c) {
     float distTotal = 0;
-    float distCurrent;
     float distPrecalc[c->mouse->listc];
-    // memset(&dist, 0, sizeof(dist));
     for (int i = 0; i < c->mouse->listc - 2; ++i) {
         distPrecalc[i] = pointGetDistance(mouseState(c->mouse, i).p, mouseState(c->mouse, i + 1).p);
         distTotal += distPrecalc[i];
-        // if (dist_total < args->trail_length * 2) DrawLine(mouse_history[i], mouse_history[i + 1]);
     }
     float distMax = MIN(distTotal, args->trail_length);
 
     if (args->type_trail) {
-        distCurrent = 0;
-        for (int i = 0; i < c->mouse->listc - 2; ++i) {
+        float distCurrent = 0;
+        for (int i = 0; i < c->mouse->listc - 1; ++i) {
             if (distCurrent >= args->trail_length) continue;
             Point p1 = mouseState(c->mouse, i).p;
             Point p2 = mouseState(c->mouse, i + 1).p;
@@ -38,15 +35,14 @@ void render(ConfigArgs *args, Canvas *c) {
             float g1 = distCurrent / distMax;
             distCurrent += dist;
             float g2 = distCurrent / distMax;
-            // drawLine(c, p1, p2);
             rTaperedGradLine(c, p1, 1 - g1, args->trail_thickness - g1 * args->trail_thickness, p2, 1 - g2,
                              args->trail_thickness - g2 * args->trail_thickness);
         }
     }
 
     if (args->type_dots) {
-        distCurrent = 0;
-        for (int i = 1; i < c->mouse->listc; ++i) {
+        float distCurrent = 0;
+        for (int i = 0; i < c->mouse->listc; ++i) {
             if (distCurrent >= args->trail_length) continue;
             Point p = mouseState(c->mouse, i).p;
             float dist = distPrecalc[i];
@@ -55,4 +51,6 @@ void render(ConfigArgs *args, Canvas *c) {
             rRadialGrad(c, p, (1 - g) * (args->trail_thickness - 1), 0, 1 - g);
         }
     }
+
+    rFCircle(c, c->mouse->state->p, args->mouse_empty_area, -1);
 }

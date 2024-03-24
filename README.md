@@ -27,18 +27,20 @@ Once built, you can run xtrail with various options:
 ```
 Usage: xtrail [OPTIONS]
 Options:
---help Display this help message
---trail-length <length> Set trail length to <length>
---trail-thickness <px> Set trail thickness to <px>
---color <hex> Set color to <hex> (e.g. 0x7F7F7F)
---mouse-hcount <count> Set position history count to <count>
---refresh-rate <fps> Set refresh rate count to <fps>
---mouse-refresh-rate <hz> Set mouse refresh rate count to <hz> (e.g. 240.00)
---no-dither Disable dithering
---mouse-smooth-factor Enable synchronous rendering and mouse pooling
+  --help                       Display this help message
+  --trail-length <length>      Set trail length to <length>
+  --trail-thickness <px>       Set trail thickness to <px>
+  --color <hex>                Set color to <hex> (e.g. 0x7F7F7F)
+  --mouse-hcount <count>       Set position history count to <count>
+  --refresh-rate <fps>         Set refresh rate count to <fps>
+  --mouse-refresh-rate <hz>    Set mouse refresh rate count to <hz> (e.g. 240.00)
+  --no-dither                  Disable dithering
+  --mouse-smooth-factor        Synchronous rendering and mouse pooling
+  --mouse-share-thread <value> Adjusts the smoothness of mouse movements (e.g. 0 or 2)
+  --mouse-empty-area <px>      Sets area around mouse which is not obfuscated by trails
 Render type options:
---trail Render "trail" type
---dots Render "dots" type
+  --trail                      Render "trail" type
+  --dots                       Render "dots" type
 ```
 
 ## License

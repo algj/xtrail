@@ -7,7 +7,8 @@
 #include "./global.c"
 #include "./render_area_calc.c"
 
-// note, when you're setting pixel colors, you're always adding to existing pixel values rather than replacing them, unless the value is -1:
+// note, when you're setting pixel colors, you're always adding to existing pixel values rather than replacing them,
+// unless the value is -1...
 // colors:
 //     -1 = clear pixel (reset to 0)
 //      0 = no change (even if the pixel is currently 1)
@@ -123,9 +124,8 @@ void rLine(Canvas *c, Point point1, Point point2, char color) {
 }
 
 void rTaperedGradLine(Canvas *c, Point point1, float color1, float thickness1, Point point2, float color2, float thickness2) {
-    if (c->dither == 0) {
-        color1 = color2 = 1;
-    }
+    if (c->dither == 0) color1 = color2 = 1;
+
     int   dx = abs(point2.x - point1.x);
     int   dy = abs(point2.y - point1.y);
     int   sx = point1.x < point2.x ? 1 : -1;

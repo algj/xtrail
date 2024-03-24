@@ -44,10 +44,10 @@ char inline is_avx2_supported() {
 #endif
 }
 void inline renderAreaClearImage(RenderArea *a, XImage *image) {
-    int x = MAX(0, a->x1-1);
-    int y = MAX(0, a->y1-1);
-    int width = MIN(a->x2, image->width - 1) - x;
-    int height = MIN(a->y2, image->height - 1) - y;
+    int x = MAX(0, a->x1);
+    int y = MAX(0, a->y1);
+    int width = MIN(a->x2, image->width) - x;
+    int height = MIN(a->y2, image->height) - y;
 
     // check if AVX2 is supported
     if (is_avx2_supported()) {

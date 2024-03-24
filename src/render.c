@@ -35,6 +35,7 @@ void render(ConfigArgs *args, Canvas *c) {
             float g1 = distCurrent / distMax;
             distCurrent += dist;
             float g2 = distCurrent / distMax;
+            if (g1 > 1 || g2 > 1 || g1 < 0 || g2 < 0) continue; // division may lead to very big numbers, so let's ignore such lines
             rTaperedGradLine(c, p1, 1 - g1, args->trail_thickness - g1 * args->trail_thickness, p2, 1 - g2,
                              args->trail_thickness - g2 * args->trail_thickness);
         }

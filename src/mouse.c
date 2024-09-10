@@ -2,7 +2,7 @@
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <stdio.h>
+#include <X11/extensions/Xfixes.h>
 #include <stdlib.h>
 
 #include "./global.c"
@@ -62,6 +62,30 @@ void mouseUpdate(Mouse *mouse) {
     Window       child;
     int          rootX, rootY, winX, winY;
     unsigned int mask;
+
+    mouse->loopIndex++;
+
+    // update is mouse hidden
+    if (mouse->loopIndex % 10 == 0 || 1) { // don't check too frequently
+        XFixesCursorImage *cursor_image = XFixesGetCursorImage(mouse->display);
+        if (cursor_image) {
+            mouse->hidden = 1;
+            for (int i = 0; i < cursor_image->width * cursor_image->height - 3; i += 4) {
+                if (cursor_image->pixels[i] || cursor_image->pixels[i + 1] || cursor_image->pixels[i + 2] || cursor_image->pixels[i + 3]) {
+                    mouse->hidden = 0;
+                    break;
+                }
+            }
+            if (mouse->hidden) {
+                mouse->listc = 0;
+                mouse->historyCur = mouse->historyBufSize - 1;
+            }
+        } else {
+            mouse->hidden = 0;
+        }
+    }
+
+    // update mouse position
     XQueryPointer(mouse->display, mouse->window, &root, &child, &rootX, &rootY, &winX, &winY, &mask);
     MouseState mcurr = (MouseState){
         .fp = {rootX, rootY},
@@ -77,6 +101,7 @@ void mouseUpdate(Mouse *mouse) {
 void mouseReset(Mouse *mouse) {
     mouse->historyCur = mouse->historyBufSize - 1;
     mouse->listc = 0;
+    mouse->loopIndex = 0;
     mouseUpdate(mouse);
 }
 
@@ -93,6 +118,8 @@ Mouse *mouseInit(Display *display, Window window, int historyMaxLength, int inte
     mouse->window = window;
     mouse->historyBufSize = historyMaxLength;
     mouse->historyList = malloc(sizeof(MouseState) * mouse->historyBufSize);
+    mouse->hidden = 1;
+    mouse->loopIndex = 0;
     mouseReset(mouse);
     return mouse;
 }

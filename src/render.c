@@ -12,6 +12,9 @@
 // #define DrawLine(point1, point2) XDrawLine(display, ref, gc, point1.x, point1.y, point2.x, point2.y)
 
 void render(ConfigArgs *args, Canvas *c) {
+    // do not render mouse if it's currently hidden
+    if (c->mouse->hidden) return;
+
     float distTotal = 0;
     float distPrecalc[c->mouse->listc];
     for (int i = 0; i < c->mouse->listc - 2; ++i) {
@@ -53,5 +56,6 @@ void render(ConfigArgs *args, Canvas *c) {
         }
     }
 
+    // hide area around mouse
     rFCircle(c, c->mouse->state->p, args->mouse_empty_area, -1);
 }

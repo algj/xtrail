@@ -36,6 +36,8 @@ typedef struct {
     unsigned int historyCur;
     unsigned int listc;
     int          interpolationFactor;
+    char         hidden;
+    unsigned int loopIndex;
 } Mouse;
 
 typedef struct {

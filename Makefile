@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -pedantic -Ofast
-LDFLAGS = -lm -lc -lX11 -lXrandr -lXext -lXrender -pthread
+LDFLAGS = -lm -lc -lX11 -lXfixes -lXrandr -lXext -lXrender -pthread
 MAN_DIR = /usr/local/share/man/man1
 
 SRC = src/main.c

@@ -42,8 +42,8 @@ Options:
   --refresh-rate <fps>         Set refresh rate count to <fps>
   --mouse-refresh-rate <hz>    Set mouse refresh rate count to <hz> (e.g. 240.00)
   --no-dither                  Disable dithering
-  --mouse-smooth-factor        Synchronous rendering and mouse pooling
-  --mouse-share-thread <value> Adjusts the smoothness of mouse movements (e.g. 0 or 2)
+  --mouse-share-thread         Synchronous rendering and mouse pooling
+  --mouse-smooth-factor <val>  Adjusts the smoothness of mouse movements (e.g. 0 or 2)
   --mouse-empty-area <px>      Sets area around mouse which is not obfuscated by trails
 Render type options:
   --trail                      Render "trail" type

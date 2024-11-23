@@ -10,6 +10,7 @@ xtrail is a lightweight program designed to render trails behind the mouse curso
 - Supports customizable trail length and thickness.
 - Adjustable mouse position history count.
 - Configurable refresh rates for both rendering and mouse tracking.
+- Trail is hidden when cursor is invisible (e.g., gaming)
 
 ## Installation
 

@@ -66,7 +66,7 @@ void mouseUpdate(Mouse *mouse) {
     mouse->loopIndex++;
 
     // update is mouse hidden
-    if (mouse->loopIndex % 10 == 0 || 1) { // don't check too frequently
+    if (mouse->loopIndex % 10 == 0) { // don't check too frequently
         XFixesCursorImage *cursor_image = XFixesGetCursorImage(mouse->display);
         if (cursor_image) {
             mouse->hidden = 1;

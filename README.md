@@ -1,4 +1,4 @@
-# xtrail
+# 💫 xtrail
 
 xtrail is a lightweight program designed to render trails behind the mouse cursor on X11-based systems. This doesn't require a compositor (but highly recommended for some programs) and utilizes dithering techniques for rendering with a minimalistic 1-bit "transparency" depth.
 
